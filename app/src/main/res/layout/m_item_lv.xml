@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+
+    <ImageView
+        android:id="@+id/m_item_iv"
+        android:src="@drawable/m_item_default"
+        android:layout_width="45dp"
+        android:layout_height="45dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/m_item_iv"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/m_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公交"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="2dp"/>
+
+        <TextView
+            android:id="@+id/m_item_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注备注"
+            android:textSize="12sp"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/m_item_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥25"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="2dp"/>
+
+        <TextView
+            android:id="@+id/m_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今天 14：30"
+            android:textSize="12sp"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+</RelativeLayout>

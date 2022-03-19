@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">记账</string>
+    <string name="m_record">记一笔</string>
+    <string name="m_expense">本月支出</string>
+    <string name="m_income">本月收入</string>
+    <string name="m_budget_left">预算剩余</string>
+    <string name="m_money_info_today">今天支出 ￥ 0 收入 ￥ 0</string>
+    <string name="out_record_money_time">2021年12月2日 14：32</string>
+    <string name="out_more">其它</string>
+    <string name="out_remark">添加备注</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

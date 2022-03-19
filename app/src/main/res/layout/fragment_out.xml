@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:id="@+id/out_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+
+
+        <ImageView
+            android:id="@+id/out_more_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/out_more"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/out_more_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/out_more"
+            android:layout_toRightOf="@+id/out_more_iv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/out_record_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:inputType="number"/>
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/out_view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/out_rl"
+        android:background="@color/colorGray"/>
+
+    <GridView
+        android:id="@+id/out_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/out_view_line"
+        android:numColumns="5"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/colorWhite"/>
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/out_keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@color/colorGray"
+        android:keyTextColor="@color/colorBlack"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingTop="1dp"
+        android:shadowColor="@color/colorWhite"
+        android:shadowRadius="0.0"
+        android:layout_alignParentBottom="true"/>
+
+
+    <RelativeLayout
+        android:layout_above="@+id/out_keyboard_view"
+        android:id="@+id/out_keyboard_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/out_record_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/out_record_money_time"
+            android:textSize="14sp"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/out_record_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/out_remark"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
