@@ -16,21 +16,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/m_expense"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/m_item_head_expanse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥ 0"
-            android:textSize="40sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             android:layout_below="@+id/m_item_head_expanse_tip"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
         <ImageView
+            android:id="@+id/m_head_hide_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/m_item_head_expanse"
@@ -84,18 +85,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="查看图标分析"
-            android:layout_margin="20dp"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/colorGreen"
             android:layout_below="@+id/m_item_head_income_tip"
             android:layout_centerHorizontal="true"
             android:drawableLeft="@drawable/m_chart"
+            android:drawablePadding="10dp"
             />
 
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/m_item_head_today_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/m_money_info_today"
         android:textSize="18sp"/>

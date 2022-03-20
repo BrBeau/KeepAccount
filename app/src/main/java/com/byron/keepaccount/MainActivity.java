@@ -7,18 +7,36 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
+import com.byron.keepaccount.adapter.MainListViewAdapter;
+import com.byron.keepaccount.bean.AccountBean;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private String Tag = MainActivity.class.getSimpleName();
-    private View mListView;
+    private ListView mListView;
+    private View mHeadView;
     private ImageView mMoreBtn, mSearchIv;
     private Button mRecordBtn;
     private int year, month, day;
+
+    //ListView的header控件
+    private TextView mHeadExpanseTv, mHeadIncomeTv, mHeadBugetLeftTv, mHeadTodayTv;
+    private ImageView mHeadHideMoney;
+
+    private boolean isHideMoney = true;
+
+    private List<AccountBean> mAccountDataList;
+    private MainListViewAdapter mAdapter;
 
 
     @Override
@@ -27,6 +45,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         getCurTime();
         initView();
+        addListViewHead();
+
+        //加载ListView数据
+        mAccountDataList = new ArrayList<>();
+        mAdapter = new MainListViewAdapter(this, mAccountDataList);
+        mListView.setAdapter(mAdapter);
+
+        //获取数据库数据加载到ListView里
+
     }
 
 
@@ -39,6 +66,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMoreBtn.setOnClickListener(this);
         mRecordBtn.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
+
+    }
+
+    private void addListViewHead(){
+        //listView要设置adapter依附于view才能正常显示
+        mHeadView = getLayoutInflater().inflate(R.layout.m_item_lv_head, null);
+        mListView.addHeaderView(mHeadView);
+
+        mHeadExpanseTv = mHeadView.findViewById(R.id.m_item_head_expanse);
+        mHeadIncomeTv = mHeadView.findViewById(R.id.m_item_head_income);
+        mHeadBugetLeftTv = mHeadView.findViewById(R.id.m_item_head_budget_left);
+        mHeadTodayTv = mHeadView.findViewById(R.id.m_item_head_today_tv);
+        mHeadHideMoney = mHeadView.findViewById(R.id.m_head_hide_money);
+
+        mHeadHideMoney.setOnClickListener(this);
+
+
 
     }
 
@@ -68,6 +112,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.m_search_img:
                 Log.d(Tag, "搜索图标被点击");
                 break;
+
+            case R.id.m_head_hide_money:
+                //设置金额的显隐功能
+                isHideMoney();
+                break;
+        }
+    }
+
+    private void isHideMoney(){
+        if (isHideMoney){
         }
     }
 
