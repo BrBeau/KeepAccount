@@ -2,8 +2,12 @@ package com.byron.keepaccount;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 
 import com.byron.keepaccount.adapter.MainListViewAdapter;
 import com.byron.keepaccount.bean.AccountBean;
+import com.byron.keepaccount.db.DbManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<AccountBean> mAccountDataList;
     private MainListViewAdapter mAdapter;
 
+    private SharedPreferences msp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getCurTime();
         initView();
         addListViewHead();
+
+        msp = getSharedPreferences("budget", Context.MODE_PRIVATE);
 
         //加载ListView数据
         mAccountDataList = new ArrayList<>();
@@ -82,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mHeadHideMoney.setOnClickListener(this);
 
-
-
     }
 
     /**
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getCurTime(){
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
+        month = calendar.get(Calendar.MONTH)+1;
         day = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
@@ -115,13 +122,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.m_head_hide_money:
                 //设置金额的显隐功能
-                isHideMoney();
+                hideMoneyToggle();
                 break;
         }
     }
 
-    private void isHideMoney(){
+    // 当activity获取焦点时，会调用的方法
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDBData();
+//        setTopTvShow();
+    }
+
+
+    /**
+     * 加载sqlLite的数据到listView里
+     */
+    private void loadDBData(){
+        List<AccountBean> accountList = DbManager.getAccountData(year, month, day);
+        mAccountDataList.clear();
+        if (accountList!=null){
+            mAccountDataList.addAll(accountList);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void hideMoneyToggle(){
         if (isHideMoney){
+            PasswordTransformationMethod ptm = PasswordTransformationMethod.getInstance();
+            mHeadExpanseTv.setTransformationMethod(ptm);
+            mHeadIncomeTv.setTransformationMethod(ptm);
+            mHeadBugetLeftTv.setTransformationMethod(ptm);
+            mHeadHideMoney.setImageResource(R.drawable.m_head_hide);
+            isHideMoney = false;
+        }else{
+            HideReturnsTransformationMethod hrtm = HideReturnsTransformationMethod.getInstance();
+            mHeadExpanseTv.setTransformationMethod(hrtm);
+            mHeadIncomeTv.setTransformationMethod(hrtm);
+            mHeadBugetLeftTv.setTransformationMethod(hrtm);
+            mHeadHideMoney.setImageResource(R.drawable.m_head_show);
+            isHideMoney = true;
         }
     }
 

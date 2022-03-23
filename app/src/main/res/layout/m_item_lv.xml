@@ -28,7 +28,7 @@
             android:layout_marginTop="2dp"/>
 
         <TextView
-            android:id="@+id/m_item_remark"
+            android:id="@+id/m_item_beizhu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="备注备注"

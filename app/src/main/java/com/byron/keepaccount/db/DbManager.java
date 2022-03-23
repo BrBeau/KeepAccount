@@ -82,4 +82,34 @@ public class DbManager {
         Log.d(TAG, "insertAccountBeanToDb money: " + mAccountBean.getMoney());
     }
 
+
+    /**
+     * 从sqlLite中获取相匹配日期的account数据
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
+    public static List<AccountBean> getAccountData(int year, int month, int day){
+        List<AccountBean> accountList = new ArrayList<>();
+        String sql = "select * from " + Constant.ACCOUNT_DB_NAME + " where year=" +year + " and month=" + month +
+                " and day=" + day + " order by id desc";
+        Log.d(TAG, " 查询语句sql： " + sql);
+        Cursor cursor = db.rawQuery(sql, null);
+        Log.d(TAG, " 查询后数据的大小： " + cursor.getCount());
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String typeName = cursor.getString(cursor.getColumnIndex("typeName"));
+            String beiZhu = cursor.getString(cursor.getColumnIndex("beiZhu"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            int imageId = cursor.getInt(cursor.getColumnIndex("imageId"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            AccountBean accountBean = new AccountBean(id, typeName, beiZhu, time, money, year, month, day, imageId, kind);
+            accountList.add(accountBean);
+        }
+
+        return accountList;
+    }
+
 }
