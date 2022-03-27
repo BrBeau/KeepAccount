@@ -21,6 +21,8 @@ import com.byron.keepaccount.R;
 import com.byron.keepaccount.adapter.TypeBaseAdapter;
 import com.byron.keepaccount.bean.AccountBean;
 import com.byron.keepaccount.bean.TypeBean;
+import com.byron.keepaccount.dialog.BeiZhuDialog;
+import com.byron.keepaccount.interf.BeiZhuDialogEnsureListener;
 import com.byron.keepaccount.interf.KeyboardEnsureListener;
 import com.byron.keepaccount.utils.KeyboardUtil;
 
@@ -175,9 +177,28 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
 
             case R.id.out_record_remark:
                 Log.d(TAG, "onClick 备注");
+                showBeiZhuDialog();
                 break;
 
         }
+
+    }
+
+    public void showBeiZhuDialog(){
+        final BeiZhuDialog beiZhuDialog = new BeiZhuDialog(getContext());
+        beiZhuDialog.show();
+        beiZhuDialog.setDialogSize();
+        beiZhuDialog.setEnsureListener(new BeiZhuDialogEnsureListener() {
+            @Override
+            public void onEnsure() {
+                String beiZhuMsg = beiZhuDialog.getBeiZhuText();
+                if (!TextUtils.isEmpty(beiZhuMsg)){
+                    mBeiZhuTv.setText(beiZhuMsg);
+                    mAccountBean.setBeiZhu(beiZhuMsg);
+                }
+                beiZhuDialog.cancel();
+            }
+        });
 
     }
 }
