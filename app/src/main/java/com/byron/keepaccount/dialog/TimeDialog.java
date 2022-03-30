@@ -3,6 +3,7 @@ package com.byron.keepaccount.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -59,9 +60,35 @@ public class TimeDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.dialog_time_btn_ensure:
-                if (mEnsureListener != null){
-                    //mEnsureListener.onEnsure();
+                int year = mDatePicker.getYear();
+                int month = mDatePicker.getMonth() + 1;
+                int day = mDatePicker.getDayOfMonth();
+                String monthStr = String.valueOf(month);
+                if (month<10) monthStr = "0" + month;
+                String dayStr = String.valueOf(day);
+                if (day<10) dayStr = "0" + day;
+                //获取输入的时分
+                String hourStr = mHourEt.getText().toString().trim();
+                String minuteStr = mMinEt.getText().toString().trim();
+                int hour=0, minute=0;
+                if (!TextUtils.isEmpty(hourStr)){
+                    hour = Integer.parseInt(hourStr);
+                    hour = hour%24;
                 }
+                if (!TextUtils.isEmpty(minuteStr)){
+                    minute = Integer.parseInt(minuteStr);
+                    minute = minute%60;
+                }
+
+                hourStr = String.valueOf(hour);
+                minuteStr = String.valueOf(minute);
+                if (hour<10) hourStr = "0" + hourStr;
+                if (minute<10) minuteStr = "0" + hourStr;
+                String timeFormate = year + "年" + monthStr + "月" + dayStr + "日 " + hourStr + ":" + minuteStr;
+                if (mEnsureListener != null){
+                    mEnsureListener.onEnsure(timeFormate, year, month, day);
+                }
+                cancel();
                 break;
 
             case R.id.dialog_time_btn_cancel:

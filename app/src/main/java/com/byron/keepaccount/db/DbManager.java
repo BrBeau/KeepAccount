@@ -112,4 +112,46 @@ public class DbManager {
         return accountList;
     }
 
+    /**
+     * 获取某一天的收入或支出金额
+     * @param year
+     * @param month
+     * @param day
+     * @param kind   1:收入     0：支出
+     * @return
+     */
+    public static float getSumMoneyByDay(int year, int month, int day, int kind){
+        float sum = 0.0f;
+        String sql = "select sum(money) from " + Constant.ACCOUNT_DB_NAME + " where year=" + year +
+                " and month=" + month + " and day=" + day + " and kind=" + kind;
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()){
+            float money = cursor.getFloat(cursor.getColumnIndex("sum(money)"));
+            sum = money;
+        }
+
+        return sum;
+
+    }
+
+    /**
+     * 获取某个月的收入或支出的金额
+     * @param year
+     * @param month
+     * @param kind 1：收入    0：支出
+     * @return
+     */
+    public static float getSumMoneyByMonth(int year, int month, int kind){
+        float sum = 0.0f;
+        String sql = "select sum(money) from " + Constant.ACCOUNT_DB_NAME + " where year=" + year +
+                " and month=" + month + " and kind=" + kind;
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()){
+            float money = cursor.getFloat(cursor.getColumnIndex("sum(money)"));
+            sum = money;
+        }
+
+        return sum;
+    }
+
 }

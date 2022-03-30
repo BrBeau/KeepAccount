@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.byron.keepaccount.adapter.MainListViewAdapter;
 import com.byron.keepaccount.bean.AccountBean;
+import com.byron.keepaccount.constant.Constant;
 import com.byron.keepaccount.db.DbManager;
 
 import java.util.ArrayList;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         loadDBData();
-//        setTopTvShow();
+        showHeadData();
     }
 
 
@@ -164,6 +165,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mHeadHideMoney.setImageResource(R.drawable.m_head_show);
             isHideMoney = true;
         }
+    }
+
+    /**
+     * 显示ListView head的数据
+     */
+    public void showHeadData(){
+        float incomeByDay = DbManager.getSumMoneyByDay(year, month, day, Constant.SHOU_RU);
+        float outomeByDay = DbManager.getSumMoneyByDay(year, month, day, Constant.ZHI_CHU);
+        String infoByDay = "今日支出 ￥ " + outomeByDay + " 收入 ￥ " + incomeByDay;
+        mHeadTodayTv.setText(infoByDay);
+
+        float incomeByMonth = DbManager.getSumMoneyByMonth(year, month, Constant.SHOU_RU);
+        float outcomeByMonth = DbManager.getSumMoneyByMonth(year, month, Constant.ZHI_CHU);
+        mHeadIncomeTv.setText("￥ " + incomeByMonth);
+        mHeadExpanseTv.setText("￥ " + outcomeByMonth);
+
+
     }
 
 }

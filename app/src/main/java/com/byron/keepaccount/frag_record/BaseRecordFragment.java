@@ -22,8 +22,10 @@ import com.byron.keepaccount.adapter.TypeBaseAdapter;
 import com.byron.keepaccount.bean.AccountBean;
 import com.byron.keepaccount.bean.TypeBean;
 import com.byron.keepaccount.dialog.BeiZhuDialog;
+import com.byron.keepaccount.dialog.TimeDialog;
 import com.byron.keepaccount.interf.BeiZhuDialogEnsureListener;
 import com.byron.keepaccount.interf.KeyboardEnsureListener;
+import com.byron.keepaccount.interf.TimeDialogEnsureListener;
 import com.byron.keepaccount.utils.KeyboardUtil;
 
 import java.text.SimpleDateFormat;
@@ -173,6 +175,7 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
         switch (v.getId()){
             case R.id.out_record_time:
                 Log.d(TAG, "onClick 时间");
+                showTimeDialog();
                 break;
 
             case R.id.out_record_remark:
@@ -197,6 +200,23 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
                     mAccountBean.setBeiZhu(beiZhuMsg);
                 }
                 beiZhuDialog.cancel();
+            }
+        });
+
+    }
+
+    private void showTimeDialog(){
+        TimeDialog timeDialog = new TimeDialog(getContext());
+        timeDialog.show();
+        timeDialog.setTimeDialogEnsureListener(new TimeDialogEnsureListener() {
+            @Override
+            public void onEnsure(String time, int year, int month, int day) {
+//                Log.d(TAG, "点击确定");
+                mTimeTv.setText(time);
+                mAccountBean.setTime(time);
+                mAccountBean.setYear(year);
+                mAccountBean.setMoney(month);
+                mAccountBean.setDay(day);
             }
         });
 
